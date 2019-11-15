@@ -44,6 +44,10 @@ steps:
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements.txt
     pip install unittest-xml-reporting
+    pip install django
+    pip install selenium
+    python manage.py makemigrations
+    python manage.py migrate
   displayName: 'Install prerequisites'
 
 - script: |
