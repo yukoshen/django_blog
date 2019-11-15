@@ -1,1 +1,5 @@
 *.pyc
+/.idea/
+/env/Lib/site-packages/
+/env/Scripts/
+/env/pyvenv.cfg
