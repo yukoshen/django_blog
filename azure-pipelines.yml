@@ -43,16 +43,17 @@ steps:
 - script: |
     python -m pip install --upgrade pip setuptools wheel
     pip install -r requirements.txt
-    pip install unittest-xml-reporting
     pip install django
     pip install selenium
+    pip install pytest
     python manage.py makemigrations
     python manage.py migrate
+    chmod 755 -R '$(projectRoot)'/
+
   displayName: 'Install prerequisites'
 
 - script: |
-    pushd '$(projectRoot)'
-    python manage.py test --testrunner xmlrunner.extra.djangotestrunner.XMLTestRunner --no-input
+    pytest -v
   displayName: 'Run tests'
 
 - task: PublishTestResults@2
