@@ -1,20 +1,28 @@
-from django.test import TestCase
 from selenium import webdriver
-import time
+import os
+import platform
 
 
-# Create your tests here.
-def test_setup():
+def test_setUp():
+    directory = os.getcwd()
+    chrome_driver_name = 'chromedriver' if platform.system() == 'Linux' else 'chromedriver.exe'
+    print(directory)
+    chrome_driver_directory = directory + "/drivers/" + chrome_driver_name
+    print(chrome_driver_directory)
+    options = webdriver.ChromeOptions()
+    options.add_argument('--disable-extensions')
+    options.add_argument('--headless')
+    options.add_argument('--disable-gpu')
+    options.add_argument('--no-sandbox')
     global driver
-    driver = webdriver.Chrome("E:\Programming\Installers\Python\Repository\django_repo\drivers\chromedriver.exe")
-    driver.implicitly_wait(10)
-    driver.maximize_window()
+    driver = webdriver.Chrome(options=options, executable_path=chrome_driver_directory)
+    driver.set_page_load_timeout(10)
 
 
 def test_about():
     driver.get("http://localhost:8000/")
-    driver.find_element_by_name("about").click()
-    time.sleep(4)
+    driver.find_element_by_id("about").click()
+
+
+def test_tearDown():
     driver.quit()
-
-
