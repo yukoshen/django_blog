@@ -45,15 +45,15 @@ steps:
     pip install -r requirements.txt
     pip install django
     pip install selenium
-    pip install pytest
     python manage.py makemigrations
     python manage.py migrate
-    chmod 755 -R '$(projectRoot)'/
+    chmod 755 -R '$(projectRoot)'/selenium_test
 
   displayName: 'Install prerequisites'
 
 - script: |
-    pytest -v
+    cd '$(projectRoot)'
+    python manage.py test selenium_test
   displayName: 'Run tests'
 
 - task: PublishTestResults@2
